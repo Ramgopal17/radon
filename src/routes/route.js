@@ -69,5 +69,32 @@ router.post("/test-post-4", function(req, res) {
     arr.push(ele)
     res.send(  { msg: arr , status: true }  )
 })
+ let players=[{
+    "name":"shyam",
+    "gender":"male",
+    "dob":"01/01/1998",
+    "sport":"cricket"
+},
+{
+    "name":"sita",
+"gender":"female",
+"dob":"01/01/1997",
+"sport":"bolleyball"
+}
+
+]
+
+
+ ;
+router.post("/test-post-6",function(req,res){
+    for(i=0;i<players.length;i++){
+        if(players.name!==req.body.newPlayer.name){
+            players.push(req.body.players)
+        }
+    }
+
+    res.send(  { msg: players , status: true }  )
+})
+ 
 
 module.exports = router;
