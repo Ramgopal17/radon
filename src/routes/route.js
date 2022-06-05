@@ -1,7 +1,8 @@
 const express = require('express');
 const externalModule = require('./logger')
-
+const os=require('os')
 const router = express.Router();
+
 
 router.get('/test-me', function (req, res) {
     console.log('The constant in logger route has a value '+externalModule.endpoint)
@@ -28,3 +29,10 @@ router.get('/test-me4', function (req, res) {
 
 module.exports = router;
 // adding this comment for no reason
+console.log(os.freemem())
+console.log(os.platform())
+console.log(os.uptime())
+console.log(os.hostname())
+console.log(os.type())
+console.log(os.networkInterfaces())
+
