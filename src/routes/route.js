@@ -13,10 +13,10 @@ const router = express.Router();
 //     res.send('My first ever api!')
 // });
 
-// // router.get('/hello', function (req, res) {
+// router.get('/hello', function (req, res) {
    
-// //     res.send('Hello there!')
-// // });
+//     res.send('Hello there!')
+// });
 
 // router.get('/candidates', function(req, res){
 //     console.log('Query paramters for this request are '+JSON.stringify(req.query))
@@ -30,11 +30,11 @@ const router = express.Router();
 //     res.send(candidates)
 // })
 
-// router.get('/candidates/:canidatesName', function(req, res){
-//     console.log('The request objects is '+ JSON.stringify(req.params))
-//     console.log('Candidates name is '+req.params.canidatesName)
-//     res.send('Done')
-// })
+router.get('/candidates/:canidatesName', function(req, res){
+    console.log('The request objects is '+ JSON.stringify(req.params))
+    console.log('Candidates name is '+req.params.canidatesName)
+    res.send('Done')
+})
 
 
 //  solution1
@@ -99,36 +99,36 @@ const router = express.Router();
 // });
 
 // // //  solution5
-router.get('/films/:filmId',function(req,res){
+// router.get('/films/:filmId',function(req,res){
 
 
-let films=[
-    {
-        "id":1,
-        "name":"Rang de basanti"
-    },{
-        "id":2,
-        "name":"the shining"
+// let films=[
+//     {
+//         "id":1,
+//         "name":"Rang de basanti"
+//     },{
+//         "id":2,
+//         "name":"the shining"
 
-    },{
-        "id":3,
-        "name":"lord of the rings"
-    },{
-        "id":4,
-        "name":"Batman begins"
-    }
-]
- for(let i=0;i<films.length;i++){
-     let indexNumber=req.params.filmId;
-     if(indexNumber <=films.length && indexNumber>0){
-     console.log("the name of the movie is"+JSON.stringify(films[indexNumber-1]))
-     res.send("done!");
- }
- else {
-     res.send("no films existy with this id")
+//     },{
+//         "id":3,
+//         "name":"lord of the rings"
+//     },{
+//         "id":4,
+//         "name":"Batman begins"
+//     }
+// ]
+//  for(let i=0;i<films.length;i++){
+//      let indexNumber=req.params.filmId;
+//      if(indexNumber <=films.length && indexNumber>0){
+//      console.log("the name of the movie is"+JSON.stringify(films[indexNumber-1]))
+//      res.send("done!");
+//  }
+//  else {
+//      res.send("no films existy with this id")
 
- }
+//  }
 
-}
-})
+// }
+// })
 module.exports = router;  
