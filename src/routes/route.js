@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/students/:name', function(req, res) {
-    let studentName = req.params.name
-    console.log(studentName)
-    res.send(studentName)
-})
+// router.get('/students/:name', function(req, res) {
+//     let studentName = req.params.name
+//     console.log(studentName)
+//     res.send(studentName)
+// })
 
 router.get("/random" , function(req, res) {
     res.send("hi there")
@@ -51,10 +51,10 @@ router.post("/test-post-2", function(req, res) {
 })
 
 router.post("/test-post-3", function(req, res) {
-    // let id = req.body.user
-    // let pwd= req.body.password
+    let id = req.body.user
+    let pwd= req.body.password
 
-    // console.log( id , pwd)
+    console.log( id , pwd)
 
     console.log( req.body )
 
@@ -66,9 +66,13 @@ router.post("/test-post-3", function(req, res) {
 router.post("/test-post-4", function(req, res) {
     let arr= [ 12, "functionup"]
     let ele= req.body.element
-    arr.push(ele)
-    res.send(  { msg: arr , status: true }  )
+    arr.push(ele);
+    console.log(arr)
+    res.send('done!')
 })
+
+
+
  let players=[{
     "name":"shyam",
     "gender":"male",
@@ -82,10 +86,7 @@ router.post("/test-post-4", function(req, res) {
 "sport":"bolleyball"
 }
 
-]
-
-
- ;
+];
 router.post("/test-post-6",function(req,res){
     for(i=0;i<players.length;i++){
         if(players.name!==req.body.newPlayer.name){
