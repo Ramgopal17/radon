@@ -18,19 +18,19 @@ const  getXINRBooks=async function (req, res) {
     res.send({msg: allBook})
 }
 const getRandomBooks=async function (req, res) {
-    let allBook= await UserModel.find({$or:[{totalPage:{$gt: 500}},{stockAvailable: true}]}).select({bookName: 1,authorName: 1, _id:0})
+    let allBook= await UserModel.find({$or:[{totalPage:{$gt: 500}},{stockAvailable: true}]})
     res.send({msg: allBook})
   
     
 }
 const getBooksInYear= async function (req, res) {
     let year=req.query.year
-    let allBook= await UserModel.find({year:2020})
+    let allBook= await UserModel.find({year:year})
     res.send({msg: allBook})
 }
 const getParticularBooks =async function (req,res){
     let myData=req.body
-    let allBooks=await UserModel.find(myData).select({bookName: 1,authorName: 1, _id:0})
+    let allBooks=await UserModel.find(myData)
     res.send({msg: allBooks})
 }
 
