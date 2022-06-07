@@ -10,10 +10,14 @@ router.get("/test-me", function (req, res) {
 })
 
 router.post("/createNewBook", UserController.createNewBook  )
+router.post("/getBooksInYear", UserController.getBooksInYear  )
+router.post("/getParticularBooks", UserController.getParticularBooks)
 
 
 
 router.get("/getbooklist", UserController.getbooklist)
+router.get("/getXINRBooks", UserController. getXINRBooks)
+router.get("/getRandomBooks", UserController.getRandomBooks)
 
 
 

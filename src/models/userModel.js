@@ -2,15 +2,21 @@ const mongoose = require('mongoose');
 // const { stringify } = require('nodemon/lib/utils');
 
 const bookSchema = new mongoose.Schema( {
-    BookName: String,
-    AuthorName: String,
-    category:String,
-
-    year: Number
+    bookName:{type: String,
+        required:true},
+    authorName: String,
+    tags: [String],
+    totalPage:Number,
+    year: Number,
+    stockAvailable:Boolean,
+    prices: {
+        indianPrice: String,
+        europePrice: String,
+    },
 
 }, { timestamps: true });
 
-module.exports = mongoose.model('Book', bookSchema) //users
+module.exports = mongoose.model('Boook', bookSchema) //users
 
 
 
