@@ -23,7 +23,7 @@ app.use (
     console.log(d);
     const ipa=ip.address()
     console.log(ipa);
-    console.log(req.path);
+     console.log(req.path);
 
         next();
   }
