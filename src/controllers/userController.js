@@ -25,8 +25,12 @@ let bookauthor=async function(req,res){
 }
 let bookrange=async function(req,res){
     let data= await UserModel.find( { price : { $gte: 50, $lte: 100} } ).select({ author_id :1})
-    // let authorData=await AuthorModel.find(forEach(()=>{author_id:data.author_id})).select("author_name")
-    res.send({msg:data})
+ for(i=0;i<data.length;i++){
+    //  let pqr = await AuthorModel.findOne("author_id":data[i].author_id)
+    let pqr= await AuthorModel.findOne({"author_id": data[i].author_id})
+        res.send({msg: pqr.author_name})
+ }
+  return  res.send({msg:data})
 }
 
 module.exports.createBook= createBook
