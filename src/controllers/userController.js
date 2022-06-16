@@ -139,9 +139,6 @@ const deleteUser = async function (req, res) {
     if(userToBeModified != userLoggedIn) return res.send({status: false, msg: 'User logged is not allowed to modify the requested users data'})
 
     
-  if (!user) {
-    return res.send("No such user exists");
-  }
 
 
   
