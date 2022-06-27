@@ -56,7 +56,7 @@ const getBlog = async function (req, res) {
     if (savedData.length == 0) {
       return res.status(400).send({ status: false, msg: "No such Blogs Available" })
     } else {
-      return res.status(200).send({ msg: savedData })
+      return res.status(200).send({ status:true,data: savedData })
     }
   } catch (err) {
     res.status(500).send({ msg: err.message })
@@ -93,7 +93,7 @@ const updatedBlog = async function (req, res) {
       new: true,
     });
     
-    res.status(200).send({ msg: updateData });
+    res.status(200).send({ status:true,data: updateData });
   } catch (err) {
     res.status(500).send({ msg: "Error", error: err.message });
   }
@@ -145,7 +145,7 @@ const deletebyquery = async function (req, res) {
     const tokenId = req.decodedToken.authorId
     console.log(req.decodedToken)
     if (authorId !== tokenId) {
-      return res.status(403).send({
+      return res.status(403).send({status:false,
         msg: 'FORBIDDEN',
         error: 'User logged is not allowed to modify the requested users data',
       });
@@ -180,7 +180,7 @@ const deletebyquery = async function (req, res) {
     if (!data) return res.status(400).send({ msg: "updated data not found" })
 
 
-    res.status(200).send({ status: true })
+    res.status(200).send({ status: true ,data:data})
   }
   catch (err) {
     console.log("This is the error:", err.message)
