@@ -55,25 +55,6 @@ const mid2 = async function (req, res, next) {
   }
 };
 
-const mid3=function (req,res,next){
-  try {
-    let authorId = req.query.authorId
-    const tokenId = req.decodedToken.authorId
-    console.log(req.decodedToken)
-    if (authorId !== tokenId) {
-      return res.status(403).send({
-        msg: 'FORBIDDEN',
-        error: 'User logged is not allowed to modify the requested users data',
-      });
-      
-    }
-  next()
 
-  } catch (err) {
-    console.log("This is the error:", err.message)
-    res.status(500).send({ msg: "Error", error: err.message })
-  }
-
-}
-module.exports = { mid1, mid2 ,mid3}
+module.exports = { mid1, mid2 }
 // 

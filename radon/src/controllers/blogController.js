@@ -92,7 +92,7 @@ const updatedBlog = async function (req, res) {
     let updateData = await blogModel.findOneAndUpdate({ _id: blogId }, blog, {
       new: true,
     });
-    if(!updateData) return res.status(404).send({status:false,msg: "blogId is not correct,updatged blog not found"})
+    
     res.status(200).send({ msg: updateData });
   } catch (err) {
     res.status(500).send({ msg: "Error", error: err.message });
@@ -142,6 +142,15 @@ const deletebyquery = async function (req, res) {
     let subcategory = req.query.subcategory
     let isPublished = req.query.isPublished
     if (!authorId) return res.status(400).send({ status: false, msg: "authorId must be present" })
+    const tokenId = req.decodedToken.authorId
+    console.log(req.decodedToken)
+    if (authorId !== tokenId) {
+      return res.status(403).send({
+        msg: 'FORBIDDEN',
+        error: 'User logged is not allowed to modify the requested users data',
+      });
+      
+    }
  
     let blog = {
 
@@ -161,7 +170,7 @@ const deletebyquery = async function (req, res) {
       blog.isPublished = isPublished
     }
 
-    // console.log
+    
 
     let data = await blogModel.updateMany(blog, {
       $set: {
