@@ -10,7 +10,7 @@ router.post("/authors", authorController.createAuthor)
 
 router.post("/blogs", mid1, blogController.createBlog)
 
-router.post("/login", authorController.loginUser)
+router.post("/login", authorController.loginAuthor)
 
 router.get("/blogs", mid1, blogController.getBlog)
 

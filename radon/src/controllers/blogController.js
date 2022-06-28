@@ -4,11 +4,13 @@ const blogModel = require("../models/blogModel")
 const isValidObjectId = function (objectId) {
   return mongoose.Types.ObjectId.isValid(objectId)
 }
+
 // ....................................create  Blog................................................................
 
 const createBlog = async function (req, res) {
   try {
     let author_id = req.body.authorId
+    if(!author_id) return res.status(400).send({status:false,msg:"authorId must be there"})
     let blog = req.body
     if (!blog.title) return res.status(400).send({ msg: "title is required" })
     if (!blog.body) return res.status(400).send({ msg: "body is required" })
@@ -36,7 +38,7 @@ const getBlog = async function (req, res) {
 
     let blog = {
       isDeleted: false,
-      isPublished: false
+      isPublished: true
     }
 
     if (authorId) {
@@ -73,7 +75,7 @@ const updatedBlog = async function (req, res) {
     let blogId = req.params.blogId;
     let data = req.body;
     if (Object.keys(data).length == 0) return res.status(404).send({status: false, msg: "Please include atleast one properties to be updated"});
-    let blog = await blogModel.findById(blogId);
+    let blog= await blogModel.findById(blogId);
     console.log(blog)
     if (Object.keys(blog).length == 0) {
       return res.status(404).send({status: false, msg:"No such blog found"});
@@ -113,7 +115,7 @@ const deletedBlog = async function (req, res) {
     // blogData = req.body
     let deletedBlog = await blogModel.findOneAndUpdate({ _id: blogId }, {
       $set: {
-        isDeleted: true, deletedAt: Date()
+        isDeleted: false, deletedAt: Date()
       }
     }, { new: true });
     res.status(200).send({ status: true, data: deletedBlog });
@@ -189,10 +191,4 @@ const deletebyquery = async function (req, res) {
 }
 
 
-module.exports.createBlog = createBlog;
-module.exports.getBlog = getBlog;
-module.exports.updatedBlog = updatedBlog
-module.exports.deletedBlog = deletedBlog
-module.exports.deletebyquery = deletebyquery
-
-// User
+module.exports ={createBlog,getBlog,updatedBlog,deletedBlog,deletebyquery}

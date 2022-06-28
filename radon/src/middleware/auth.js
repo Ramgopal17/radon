@@ -16,7 +16,7 @@ const mid1 = function (req, res, next) {
     if (!decodedToken) return res.status(400).send({ status: false, msg: " token is invalid" })
     
     req.decodedToken = decodedToken;
-    // console.log(req.decodedToken)
+    console.log(req.decodedToken)
 
     next()
   }
