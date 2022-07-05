@@ -7,16 +7,13 @@ const authorSchema = new mongoose.Schema(
     lname: {type: String, trim:true,required: true },
 
     title: { type: String, enum: ["Mr", "Mrs", "Miss"], required: true },
-
     email: {
       type: String,
-      trim:true,
       required: true,
+      trim: true,
       unique: true,
-      lowercase:true,
-      match: /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/
+      lowercase: true
     },
-
     
     password: { type: String, trim:true,required: true },
   },

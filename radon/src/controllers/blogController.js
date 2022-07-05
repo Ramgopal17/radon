@@ -18,7 +18,7 @@ const createBlog = async function (req, res) {
     if (!isValidObjectId(author_id)) return res.status(404).send({ msg: " author id is not valid" })
 
     let blogCreated = await blogModel.create(blog)
-    return res.status(201).send({ data: blogCreated })
+    return res.status(201).send({status:true, data: blogCreated })
 
   } catch (err) {
     console.log("This is the error:", err.message)
@@ -110,12 +110,12 @@ const deletedBlog = async function (req, res) {
     let blog = await blogModel.findById(blogId);
 
 
-    if (!blog) return res.status(404).send({ msg: "not found" })
+    if (!blog) return res.status(404).send({status:false, msg: "not found" })
 
     // blogData = req.body
     let deletedBlog = await blogModel.findOneAndUpdate({ _id: blogId }, {
       $set: {
-        isDeleted: false, deletedAt: Date()
+        isDeleted: true, deletedAt: Date()
       }
     }, { new: true });
     res.status(200).send({ status: true, data: deletedBlog });
@@ -131,64 +131,25 @@ const deletedBlog = async function (req, res) {
 
 // ............................................................delete by query .................................................................
 
-const deletebyquery = async function (req, res) {
+const deleteBlogByQuery = async function (req, res) {
   try {
+      let obj = req.findObj
+      let decodedToken = req.decodedToken
 
-    if (Object.keys(req.query).length == 0) {
-        return res.status(400).send({ status: false, msg: "atleast one query must be there" })
-    }
-    let authorId = req.query.authorId
-    console.log(authorId)
-    let category = req.query.category
-    let tags = req.query.tags
-    let subcategory = req.query.subcategory
-    let isPublished = req.query.isPublished
-    if (!authorId) return res.status(400).send({ status: false, msg: "authorId must be present" })
-    const tokenId = req.decodedToken.authorId
-    console.log(req.decodedToken)
-    if (authorId !== tokenId) {
-      return res.status(403).send({status:false,
-        msg: 'FORBIDDEN',
-        error: 'User logged is not allowed to modify the requested users data',
-      });
-      
-    }
- 
-    let blog = {
+      obj.authorId = decodedToken.authorId
 
-    }
-    if (authorId) {
-      blog.authorId = authorId
-    }
-    if (category) {
-      blog.category=category
-    }
-    if (tags) {
-      blog.tags = tags
-    }
-    if (subcategory) {
-      blog.subcategory = subcategory
-    } if (isPublished) {
-      blog.isPublished = isPublished
-    }
-
-    
-
-    let data = await blogModel.updateMany(blog, {
-      $set: {
-        isDeleted: true, deletedAt: new Date()
+      let blogs = await blogModel.find(obj)
+      if (blogs.length > 0) {
+          let deletedBlogs = await blogModel.updateMany(obj, { $set: { isDeleted: true, deletedAt : new Date()} })
+          res.status(200).send({ status: true,data:deletedBlogs })
       }
-    });
-    if (!data) return res.status(400).send({ msg: "updated data not found" })
-
-
-    res.status(200).send({ status: true ,data:data})
+      else {
+          res.status(404).send({ status: false, msg: "no such blog available" })
+      }
   }
   catch (err) {
-    console.log("This is the error:", err.message)
-    res.status(500).send({ msg: "Error", error: err.message })
+      res.status(500).send({ msg: err.message })
   }
 }
 
-
-module.exports ={createBlog,getBlog,updatedBlog,deletedBlog,deletebyquery}
+module.exports ={createBlog,getBlog,updatedBlog,deletedBlog,deleteBlogByQuery}

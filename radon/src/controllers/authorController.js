@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const authorModel = require("../models/authorModel")
-
+const validator=require("email-validator")
 
 
 //.....................................................................create Author...............................................
@@ -14,10 +14,10 @@ const createAuthor = async function (req, res) {
     if (!data.fname) return res.status(400).send({ msg: "fname is required" })
     if (!data.lname) return res.status(400).send({ msg: "lname is required" })
     if (!data.title) return res.status(400).send({ msg: "title enum ['Mr','Mrs','Miss'] is required" })
-   if(data.title!="Mr"||"Mrs"||Miss) return res.status(400).send({status:false,msg:" enter only  ['Mr','Mrs','Miss'] as a title"})
-  
+
    
     if (!data.email) return res.status(400).send({ msg: "email is required" })
+    if (!validator.validate(data.email)) return res.status(400).send({ status: false, msg: "please enter a valid email" })
     if (!data.password) return res.status(400).send({ msg: "password is required" })
      const isEmailAlreadyUsed =await authorModel.findOne({email:data.email})
 
