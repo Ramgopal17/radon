@@ -16,15 +16,20 @@ let validsubcategory = /^[a-zA-Z ,]{3,150}$/
 
 const createBook = async function(req, res) {
         try {
+            
+            let final = {}
+            // let data=req.cover
+            // final.bookCover=data
+
+
+
             if (Object.keys(req.body).length === 0) {
                 return res.status(400).send({ status: false, message: "Kindly enter all the required details." })
             }
 
             const { title, excerpt, userId, ISBN, category, subcategory, reviews, isDeleted, releasedAt } = req.body
 
-            let final = {}
-
-
+          
             if (!isValid(title)) {
                 return res.status(400).send({ status: false, message: "Invalid title or title is not mentioned. " })
             }

@@ -112,7 +112,7 @@ const loginUser = async function(req, res) {
         let token = jwt.sign({
                 UserId: User._id.toString(),
                 iat: Date.now(),
-                exp: (Date.now()) + (60 * 1000) * 2
+                exp: (Date.now()) + (60 * 1000) * 200
             },
             "functionup-project-3"
         );

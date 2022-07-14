@@ -68,7 +68,7 @@ const createReview = async function(req, res) {
             }
             final.review = review
         }
-        console.log(final);
+      
 
         let arr = []
         const saveData = await reviewModel.create(final)
@@ -203,7 +203,7 @@ const deleteByReviewId = async function(req, res) {
         if (!deletedReview) {
             return res.status(404).send({ status: false, message: "Review not found." })
         }
-        console.log(deletedReview);
+        // console.log(deletedReview);
         if (deletedReview.isDeleted === true) {
             return res.status(404).send({ status: false, message: "Review is already deleted." })
         }

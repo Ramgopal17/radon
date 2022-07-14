@@ -5,7 +5,10 @@ const mongoose = require('mongoose');
 const app = express();
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+const multer= require("multer");
+const { AppConfig } = require('aws-sdk');
+app.use( multer().any())
+
 
 
 mongoose.connect("mongodb+srv://rajatrout470:tw1llhZ2PEKtw4qr@cluster0.rqmvg7o.mongodb.net/group55Database", {

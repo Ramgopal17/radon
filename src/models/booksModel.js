@@ -38,6 +38,10 @@ const bookSchema = new mongoose.Schema({
     reviews: {
         type: Number,
         default: 0
+
+    },
+    bookCover:{
+        type:String
     },
     deletedAt: {
         type: Date,
@@ -50,6 +54,7 @@ const bookSchema = new mongoose.Schema({
         type: Date,
         required: true
     },
+
 
 }, { timestamps: true })
 
