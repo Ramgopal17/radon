@@ -44,7 +44,7 @@ exports.createUrl = async function (req, res) {
 
         }
         if (!validUrl.test(longUrl)) {
-            return res.status(404).send({ status: false, msg: "please enter a valid url" })
+            return res.status(400).send({ status: false, msg: "please enter a valid url" })
         }
         let cacheData = await GET_ASYNC(`${longUrl}`)
 
